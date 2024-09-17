@@ -1,0 +1,169 @@
+<div class="card">
+  <p-table
+    #dt1
+    [value]="products"
+    dataKey="id"
+    [columns]="cols"
+    responsiveLayout="scroll"
+    [rows]="10"
+    [first]="first"
+    [totalRecords]="totalElements"
+    [rowsPerPageOptions]="[5, 10, 20, 30, 80]"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'imgUrl', 'unitPrice', 'unitStock']"
+    styleClass="p-datatable-customers p-datatable-gridlines"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [tableStyle]="{ 'min-width': '75rem' }"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input
+            type="text"
+            pInputText
+            size="50"
+            placeholder="Global Filter"
+            (input)="applyFilterGlobal($event, 'contains')"
+            style="width: auto"
+          />
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header" style="width: 100%">
+      <tr>
+        <th style="width: 20%; text-align: center" pSortableColumn="name">
+          <div class="flex justify-content-center align-items-center">
+            <p-sortIcon field="name" display="menu"></p-sortIcon>
+            Name
+            <p-columnFilter
+              type="text"
+              field="name"
+              display="menu"
+            ></p-columnFilter>
+          </div>
+        </th>
+        <th style="width: 20%; text-align: center">
+          <div class="flex justify-content-center align-items-center">
+            Picture
+          </div>
+        </th>
+        <th style="width: 20%; text-align: center" pSortableColumn="unitPrice">
+          <div class="flex justify-content-center align-items-center">
+            <p-sortIcon field="unitPrice" display="menu"></p-sortIcon>
+            Price
+            <p-columnFilter
+              type="text"
+              field="unitPrice"
+              display="menu"
+            ></p-columnFilter>
+          </div>
+        </th>
+        <th style="width: 20%; text-align: center" pSortableColumn="unitStock">
+          <div class="flex justify-content-center align-items-center">
+            <p-sortIcon field="unitStock" display="menu"></p-sortIcon>
+            Quantity
+            <p-columnFilter
+              type="text"
+              field="unitStock"
+              display="menu"
+            ></p-columnFilter>
+          </div>
+        </th>
+        <th style="width: 20%; text-align: center">Add to Cart</th>
+
+        <!-- <th  *ngFor="let col of cols" [ttSortableColumn]="col.field" >
+            {{ col.header }}
+            <p-treeTableSortIcon [field]="col.field" />
+        </th> -->
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td style="padding-left: 5%">
+          {{ product.name }}
+        </td>
+        <td>
+          <a [routerLink]="['product/get-one-product-by-id/', product.id]">
+            <img
+              style="text-align: center; width: 50%; margin-left: 23%"
+              src="{{ product.imgUrl }}"
+          /></a>
+        </td>
+        <td style="width: 10%; text-align: center">
+          {{ product.unitPrice | currency : "USD" }}
+        </td>
+        <td style="text-align: center">
+          {{ product.unitStock }}
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-primary"
+            style="margin-left: 30%"
+            (click)="addToCart(product)"
+          >
+            Add to cart
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5">No products found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <!-- <p-paginator 
+  (onPageChange)="onTablePage($event)" 
+  [first]="first"
+  [rows]="rows" 
+  [totalRecords]="totalElements" 
+  [rowsPerPageOptions]="[10, 20, 30]" /> -->
+</div>
+
+<!-- <div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row">
+        <div *ngFor="let tempProduct of products" class="col-md-3">
+          <div class="product-box" (click)="detailsProduct(tempProduct.id)">
+            <img src="{{ tempProduct.imgUrl }}" alt="{{ tempProduct.name }}" />
+
+            <h1>{{ tempProduct.name }}</h1>
+            <h3>{{ tempProduct.unitPrice | currency : "USD" }}</h3>
+          </div>
+        </div>
+        <div
+          *ngIf="products?.length == 0"
+          class="alert alert-warning col-md-12"
+          role="alert"
+        >
+          <h1>sorry , we don't have what u are looking for here</h1>
+        </div>
+
+        <div class="footer-pagination">
+          <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="cold-md-9" style="padding-left: 30%">
+                  <ngb-pagination
+                    [(page)]="pageNumber"
+                    [pageSize]="pageSize"
+                    [collectionSize]="totalElements"
+                    (pageChange)="
+                      handleGetProductWithPagination(pageNumber, pageSize)
+                    "
+                  >
+                  </ngb-pagination>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

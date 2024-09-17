@@ -1,0 +1,23 @@
+<div class="card mb-4 shadow">
+    <img src="{{ product?.imgUrl }}" class="card-img-top" alt="{{ product?.name }}">
+    <div class="card-body">
+      <h3 class="card-title text-center">{{ product?.name }}</h3>
+      <hr>
+      <div class="row">
+        <div class="col-md-6">
+          <p class="card-text">SKU: {{ product?.sku }}</p>
+          <p class="card-text">Price: <span class="text-danger fw-bold">{{ product?.unitPrice | currency }}</span></p>
+          <p class="card-text">Stock: {{ product?.unitStock }}</p>
+        </div>
+        <div class="col-md-6">
+          <p class="card-text">{{ product?.description }}</p>
+        </div>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-primary btn-lg mt-3"  (click)="addToCart(product!)">Add to Cart</button>
+      </div>
+      <div class=" mt-5"  >
+        <button (click)="goHome()">back to home page</button>
+      </div>
+    </div>
+  </div>

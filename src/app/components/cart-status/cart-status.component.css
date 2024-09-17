@@ -1,0 +1,89 @@
+.auth-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+  }
+  
+  .auth-button {
+    border-radius: 50px;
+    border: 1px solid #205b8d;
+    font-size: 1.5em;
+    color: #205b8d;
+    background-color: white;
+    width: 200px;
+    height: 50px;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .auth-button:hover {
+    background-color: #205b8d;
+    color: white;
+  }
+
+.total {
+    font-size: 1.2rem;
+    color: #205b8d;
+    font-weight: bold;
+    margin-right: 10px;
+    gap: 15px;
+}
+
+.fa-shopping-cart {
+    font-size: 200%;
+    color: aliceblue;
+    margin-top: 10%;
+}
+/* Container */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px; /* Added padding for better spacing */
+    background-color: #ffffff; /* Clean white background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Auth Buttons Container */
+.auth-buttons {
+    display: flex;
+    gap: 15px; /* Space between buttons */
+}
+
+/* Auth Button */
+.auth-button {
+    border-radius: 25px; /* Rounded corners */
+    border: none; /* Remove default border */
+    font-size: 0.9rem; /* Font size */
+    color: #fff; /* White text color */
+    background-color: #205b8d; /* Primary button color */
+    width: 120px; /* Width */
+    height: 40px; /* Height */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center text */
+    text-transform: uppercase; /* Capitalized text */
+    font-weight: bold; /* Bold text */
+}
+
+.auth-button:hover {
+    background-color: #1a4d7b; /* Darker shade on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+/* Username Display */
+.username {
+    font-size: 1rem;
+    color: #205b8d;
+    font-weight: 600;
+    margin-right: 20px; /* Space to the right */
+    padding: 8px 16px; /* Padding for better fit */
+    border: 1px solid #205b8d; /* Border color matching text */
+    border-radius: 25px; /* More rounded corners */
+    background-color: #e6f2ff; /* Light background color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    display: inline-flex;
+    align-items: center; /* Center text vertically */
+}

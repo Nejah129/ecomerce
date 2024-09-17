@@ -1,0 +1,86 @@
+<div
+  class="container"
+  style="
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+  "
+>
+  <div *ngIf="!token" class="auth-buttons" style="display: flex; gap: 15px">
+    <button
+      pButton
+      class="auth-button"
+      label="Login"
+      (click)="goToLogin(); getData()"
+      style="
+        border-radius: 25px;
+        border: none;
+        font-size: 0.9rem;
+        color: #fff;
+        background-color: #205b8d;
+        width: 120px;
+        height: 40px;
+        transition: background-color 0.3s, transform 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        font-weight: bold;
+      "
+    ></button>
+  </div>
+
+  <div *ngIf="token" class="auth-buttons" style="display: flex; gap: 15px">
+    <span
+      class="username"
+      style="
+        font-size: 1rem;
+        color: #205b8d;
+        font-weight: 600;
+        margin-right: 20px;
+        padding: 8px 16px;
+        border: 1px solid #205b8d;
+        border-radius: 25px;
+        background-color: #e6f2ff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: inline-flex;
+        align-items: center;
+      "
+      >{{ user.firstName }} gg</span
+    >
+    <button
+      pButton
+      class="auth-button"
+      label="Logout"
+      (click)="clearAllData(); getData()"
+      style="
+        border-radius: 25px;
+        border: none;
+        font-size: 0.9rem;
+        color: #fff;
+        background-color: #205b8d;
+        width: 120px;
+        height: 40px;
+        transition: background-color 0.3s, transform 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        font-weight: bold;
+      "
+    ></button>
+  </div>
+  <div *ngIf="token">
+
+    <a (click)="goToCart()" >
+      <div class="total" style="margin-left: 30px">
+        {{ totalPrice }} <span>{{ totalQuantity }}</span>
+      </div>
+      <i
+      class="fa fa-shopping-cart"
+      style="font-size: 200%; color: aliceblue; margin-top: 10%"
+      ></i>
+    </a>
+  </div>
+</div>

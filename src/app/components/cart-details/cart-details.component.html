@@ -1,0 +1,87 @@
+<p>cart-details works!</p>
+<div class="card">
+  <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        Products
+        <!-- <p-button icon="pi pi-refresh" /> -->
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 20%; text-align: center">Name</th>
+        <th style="width: 20%; text-align: center">Image</th>
+        <th style="width: 20%; text-align: center">Price</th>
+        <th style="width: 20%; text-align: center">Quantity</th>
+        <th style="width: 20%; text-align: center">Price of Item</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td style="width: 20%; text-align: center">{{ product.name }}</td>
+        <td style="width: 20%; text-align: center">
+          <img
+            src="{{ product.imgUrl }}"
+            [alt]="product.name"
+            width="120"
+            style="text-align: center"
+          />
+        </td>
+        <td style="width: 20%; text-align: center">
+          {{ product.unitPrice | currency : "USD" }}
+        </td>
+        <td class="flex justify-content-center flex-wrap gap-3 mt-4">
+          <button
+            pButton
+            pRipple
+            label="+"
+            class="p-button-success"
+            style="border-radius: 50%"
+            (click)="handlePlus(product)"
+          ></button>
+          <p style="margin-top: 5%">
+            {{ product.quantity }}
+          </p>
+          <button
+            pButton
+            pRipple
+            label="-"
+            class="p-button-danger"
+            [ngClass]="{ 'p-disabled': product.quantity <= 0 }"
+            style="border-radius: 50%"
+            (click)="handleMinus(product)"
+          ></button>
+        </td>
+        <td style="width: 20%; text-align: center">
+          {{ (product.quantity * product.unitPrice).toFixed(2) }}
+        </td>
+        <td>
+          <i
+            class="pi pi-trash"
+            style="font-size: 2rem"
+            (click)="handleDelete(product)"
+          ></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        <div class="flex align-items-center justify-content-start">
+          In total, there are {{ totalQuantity }} products.
+        </div>
+        <div class="flex align-items-center justify-content-end">
+          Total Price = {{ totalPrice }}
+        </div>
+      </div>
+    </ng-template>
+  </p-table>
+  <a (click)="goToCheckout()">
+    <p-button
+      label="Checkout"
+      icon="pi pi-check"
+      size="large"
+      class="flex align-items-center justify-content-end"
+    />
+  </a>
+</div>

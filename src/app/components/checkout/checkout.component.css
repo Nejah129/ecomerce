@@ -1,0 +1,154 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~@ng-select/ng-select/themes/material.theme.css";
+
+
+
+.ng-select.custom {
+  border:0px;
+  min-height: 0px;
+  border-radius: 0;
+  height: 10px !important
+}
+.ng-select.custom .ng-select-container  {            
+
+  border-radius: 0;
+}
+
+.p-error {
+  color: red;
+  font-size: 0.875rem;
+}
+
+.p-invalid {
+  border: 1px solid red !important;
+  box-shadow: none;
+}
+
+.p-field {
+  margin-bottom: 1rem;
+}
+
+.p-button-sm {
+  margin: 0 0.5rem;
+}
+
+.p-button-outlined {
+  border-color: #007ad9;
+  color: #007ad9;
+}
+
+.p-button-outlined:hover {
+  background-color: #007ad9;
+  color: #fff;
+}
+
+
+
+
+.p-steps p-steps{
+  background-color: transparent !important;
+}
+.form-container {
+  padding: 1.5rem;
+  margin: 0 auto;
+  max-width: 80%;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group-box {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.form-group-box h3 {
+  margin-top: 0;
+  font-size: 1.25rem;
+  border-bottom: 2px solid #007ad9;
+  padding-bottom: 0.5rem;
+  color: #333;
+}
+
+.p-field label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.p-field input,
+.p-field select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.p-field input::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+.p-field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z' fill='%23333'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+.p-field select:focus {
+  border-color: #007ad9;
+  outline: none;
+}
+
+.checkBox {
+  margin-bottom: 1.5rem;
+}
+
+.form-submit-button {
+  max-width: 10%;
+  margin: 1.5rem auto;
+}
+
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .p-field input,
+  .p-field select {
+    font-size: 0.85rem;
+  }
+
+  .form-group-box {
+    padding: 1rem;
+  }
+
+  .form-group-box h3 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .p-field input,
+  .p-field select {
+    font-size: 0.8rem;
+  }
+
+  .form-group-box {
+    padding: 0.75rem;
+  }
+
+  .form-group-box h3 {
+    font-size: 1rem;
+  }
+
+
+
+  
+}

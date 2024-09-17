@@ -1,0 +1,510 @@
+<div class="form-container">
+  <p-steps
+    class="p-steps"
+    [model]="items"
+    [readonly]="false"
+    [(activeIndex)]="activeIndex"
+    [readonly]="true"
+  >
+  </p-steps>
+  <!-- (ngSubmit)="onSubmit()" -->
+  <form [formGroup]="checkoutFormGroup"  class="p-fluid">
+    <ng-container *ngIf="activeIndex === 0">
+      <div
+        formGroupName="customer"
+        class="form-group-box form-group-box--customer"
+      >
+        <h3>Customer Information</h3>
+        <div class="p-field">
+          <label for="firstName" class="p-d-block">First Name</label>
+          <input
+            pInputText
+            id="firstName"
+            formControlName="firstName"
+            placeholder="Enter your first name"
+            [ngClass]="{ 'p-invalid': isFieldInvalid('customer', 'firstName') }"
+          />
+          <small *ngIf="isFieldInvalid('customer', 'firstName')" class="p-error"
+            >First name is required.</small
+          >
+        </div>
+
+        <div class="p-field">
+          <label for="lastName" class="p-d-block">Last Name</label>
+          <input
+            pInputText
+            id="lastName"
+            formControlName="lastName"
+            placeholder="Enter your last name"
+            [ngClass]="{ 'p-invalid': isFieldInvalid('customer', 'lastName') }"
+          />
+          <small *ngIf="isFieldInvalid('customer', 'lastName')" class="p-error"
+            >Last name is required.</small
+          >
+        </div>
+
+        <div class="p-field">
+          <label for="email" class="p-d-block">Email</label>
+          <input
+            pInputText
+            id="email"
+            formControlName="email"
+            placeholder="Enter your email address"
+            [ngClass]="{ 'p-invalid': isFieldInvalid('customer', 'email') }"
+          />
+          <small *ngIf="isFieldInvalid('customer', 'email')" class="p-error"
+            >Enter a valid email address.</small
+          >
+        </div>
+      </div>
+      <button
+        pButton
+        pRipple
+        label="Next"
+        (click)="activeIndex = 1"
+        [disabled]="!checkoutFormGroup.get('customer').valid"
+      ></button>
+    </ng-container>
+
+    <ng-container *ngIf="activeIndex === 1">
+      <div
+        formGroupName="shippingAddress"
+        class="form-group-box form-group-box--shipping"
+      >
+        <h3>Shipping Address</h3>
+        <div class="p-field">
+          <label for="shippingCountry" class="p-d-block">Country</label>
+          <ng-select
+            formControlName="shippingCountry"
+            class="p-inputtext-sm p-d-block"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('shippingAddress', 'shippingCountry')
+            }"
+           
+           (change)="onCountryChange($event)"
+             >
+          >
+            <ng-option
+            *ngFor="let country of countries"
+            [value]="country.geonameId"
+            >
+              {{ country.countryName }}
+            </ng-option>
+          </ng-select>
+          <small
+            *ngIf="isFieldInvalid('shippingAddress', 'shippingCountry')"
+            class="p-error"
+            >Country is required.</small
+          >
+        </div>
+        <div class="p-field">
+          <label for="shippingCity" class="p-d-block">City</label>
+          <ng-select
+            formControlName="shippingCity"
+            class="p-inputtext-sm p-d-block"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('shippingAddress', 'shippingCity')
+            }"
+          >
+            <ng-option *ngFor="let state of states" [value]="state">
+              {{ state.name }}
+            </ng-option>
+          </ng-select>
+          <small
+            *ngIf="isFieldInvalid('shippingAddress', 'shippingCity')"
+            class="p-error"
+            >City is required.</small
+          >
+        </div>
+        <div class="p-field">
+          <label for="shippingStreet" class="p-d-block">Street</label>
+          <input
+            pInputText
+            id="street"
+            formControlName="shippingStreet"
+            placeholder="Enter your street address"
+            class="p-inputtext-sm p-d-block"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('shippingAddress', 'shippingStreet')
+            }"
+          />
+          <small
+            *ngIf="isFieldInvalid('shippingAddress', 'shippingStreet')"
+            class="p-error"
+            >Street address is required.</small
+          >
+        </div>
+
+        <div class="p-field">
+          <label for="shippingState" class="p-d-block">State</label>
+          <input
+            pInputText
+            id="state"
+            formControlName="shippingState"
+            placeholder="Enter your state"
+            class="p-inputtext-sm p-d-block"
+          />
+          <small
+            *ngIf="isFieldInvalid('shippingAddress', 'shippingState')"
+            class="p-error"
+            >State is required.</small
+          >
+        </div>
+
+        <div class="p-field">
+          <label for="shippingPosteCode" class="p-d-block">Post Code</label>
+          <select
+            formControlName="shippingPosteCode"
+            class="p-inputtext-sm p-d-block"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('shippingAddress', 'shippingPosteCode')
+            }"
+          >
+            <option value="" disabled>Select your postal code</option>
+            <option value="10001">10001</option>
+            <option value="90001">90001</option>
+            <option value="60601">60601</option>
+          </select>
+          <small
+            *ngIf="isFieldInvalid('shippingAddress', 'shippingPosteCode')"
+            class="p-error"
+            >Postal code is required.</small
+          >
+        </div>
+      </div>
+      <div class="p-grid p-justify-between p-mt-3">
+        <div class="p-col-fixed">
+          <button
+            pButton
+            pRipple
+            label="Previous"
+            class="p-button-sm p-button-outlined"
+            (click)="activeIndex = 0"
+          ></button>
+        </div>
+        <div class="p-col-fixed">
+          <button
+            pButton
+            pRipple
+            label="Next"
+            class="p-button-sm p-button-primary"
+            (click)="activeIndex = 2"
+            [disabled]="!checkoutFormGroup.get('shippingAddress').valid"
+          ></button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="activeIndex === 2">
+      <input
+        type="checkbox"
+        (click)="copyShippingDetailsToBillingDetails($event)"
+      />
+      <span>Copy the Shipping details to belling </span>
+      <div
+        formGroupName="billingAddress"
+        class="form-group-box form-group-box--billing"
+      >
+        <h3>Billing Address</h3>
+        <div class="p-field">
+          <label for="billingCountry" class="p-d-block">Country</label>
+          <ng-select
+            formControlName="billingCountry"
+            class="p-inputtext-sm p-d-block"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('billingAddress', 'billingCountry')
+            }"
+           
+           (change)="onCountryChange($event)"
+             >
+          >
+            <ng-option
+            *ngFor="let country of countries"
+            [value]="country.geonameId"
+            >
+              {{ country.countryName }}
+            </ng-option>
+          </ng-select>
+          <small
+            *ngIf="isFieldInvalid('billingAddress', 'billingCountry')"
+            class="p-error"
+            >Country is required.</small
+          >
+        </div>
+        <div class="p-field">
+          <label for="billingCity" class="p-d-block">City</label>
+          <ng-select
+            formControlName="billingCity"
+            class="p-inputtext-sm p-d-block"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('billingAddress', 'billingCity')
+            }"
+          >
+            <ng-option *ngFor="let state of states" [value]="state">
+              {{ state.name }}
+            </ng-option>
+          </ng-select>
+          <small
+            *ngIf="isFieldInvalid('billingAddress', 'billingCity')"
+            class="p-error"
+            >City is required.</small
+          >
+        </div>
+        <div class="p-field">
+          <label for="billingStreet" class="p-d-block">Street</label>
+          <input
+            pInputText
+            id="street"
+            formControlName="billingStreet"
+            placeholder="Enter your street address"
+            class="p-inputtext-sm p-d-block"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('billingAddress', 'billingStreet')
+            }"
+          />
+          <small
+            *ngIf="isFieldInvalid('billingAddress', 'billingStreet')"
+            class="p-error"
+            >Street address is required.</small
+          >
+        </div>
+
+        <div class="p-field">
+          <label for="billingState" class="p-d-block">State</label>
+          <input
+            pInputText
+            id="state"
+            formControlName="billingState"
+            placeholder="Enter your state"
+            class="p-inputtext-sm p-d-block"
+          />
+          <small
+            *ngIf="isFieldInvalid('billingAddress', 'billingState')"
+            class="p-error"
+            >State is required.</small
+          >
+        </div>
+
+        <div class="p-field">
+          <label for="billingPosteCode" class="p-d-block">Post Code</label>
+          <select
+            formControlName="billingPosteCode"
+            class="p-inputtext-sm p-d-block"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('billingAddress', 'billingPosteCode')
+            }"
+          >
+            <option value="" disabled>Select your postal code</option>
+            <option value="10001">10001</option>
+            <option value="90001">90001</option>
+            <option value="60601">60601</option>
+          </select>
+          <small
+            *ngIf="isFieldInvalid('billingAddress', 'billingPosteCode')"
+            class="p-error"
+            >Postal code is required.</small
+          >
+        </div>
+      </div>
+      <div class="p-grid p-justify-between p-mt-3">
+        <div class="p-col-fixed">
+          <button
+            pButton
+            pRipple
+            label="Previous"
+            class="p-button-sm p-button-outlined"
+            (click)="activeIndex = 1"
+          ></button>
+        </div>
+        <div class="p-col-fixed">
+          <button
+            pButton
+            pRipple
+            label="Next"
+            class="p-button-sm p-button-primary"
+            (click)="activeIndex = 3"
+            [disabled]="!checkoutFormGroup.get('billingAddress').valid"
+          ></button>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- Step 4: Credit Card Details -->
+    <ng-container *ngIf="activeIndex === 3">
+      <div
+        formGroupName="creditCard"
+        class="form-group-box form-group-box--credit-card"
+      >
+        <h3>Credit Card Details</h3>
+        <div class="p-field">
+          <label for="cardType" class="p-d-block">Card Type</label>
+          <select
+            formControlName="cardType"
+            class="p-inputtext-sm p-d-block"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('creditCard', 'cardType')
+            }"
+          >
+            <option value="" disabled>Select your card type</option>
+            <option value="VISA">Visa</option>
+            <option value="MC">MasterCard</option>
+            <option value="AMEX">American Express</option>
+          </select>
+          <small
+            *ngIf="isFieldInvalid('creditCard', 'cardType')"
+            class="p-error"
+            >Card type is required.</small
+          >
+        </div>
+
+        <div class="p-field">
+          <label for="nameOnCard" class="p-d-block">Name On Card</label>
+          <input
+            pInputText
+            id="nameOnCard"
+            formControlName="nameOnCard"
+            placeholder="Enter the name on your card"
+            class="p-inputtext-sm p-d-block"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('creditCard', 'nameOnCard')
+            }"
+          />
+          <small
+            *ngIf="isFieldInvalid('creditCard', 'nameOnCard')"
+            class="p-error"
+            >Name on card is required.</small
+          >
+        </div>
+
+        <div class="p-field">
+          <label for="cardNumber" class="p-d-block">Card Number</label>
+          <input
+            pInputText
+            id="cardNumber"
+            formControlName="cardNumber"
+            placeholder="Enter your card number"
+            class="p-inputtext-sm p-d-block"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('creditCard', 'cardNumber')
+            }"
+          />
+          <small
+            *ngIf="isFieldInvalid('creditCard', 'cardNumber')"
+            class="p-error"
+            >Card number is required.</small
+          >
+        </div>
+
+        <div class="p-field">
+          <label for="securityCode" class="p-d-block">Security Code</label>
+          <input
+            pInputText
+            id="securityCode"
+            formControlName="securityCode"
+            placeholder="Enter your card's security code"
+            class="p-inputtext-sm p-d-block"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('creditCard', 'securityCode')
+            }"
+          />
+          <small
+            *ngIf="isFieldInvalid('creditCard', 'securityCode')"
+            class="p-error"
+            >Security code is required.</small
+          >
+        </div>
+
+        <div class="p-field">
+          <label for="expirationMonth" class="p-d-block"
+            >Expiration Month</label
+          >
+          <ng-select
+            formControlName="expirationMonth"
+            class="custom-ng-select"
+            aria-placeholder="MM"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('creditCard', 'expirationMonth')
+            }"
+          >
+            <ng-option *ngFor="let item of creditCardMonths" [value]="item">
+              {{ item }}
+            </ng-option>
+          </ng-select>
+          <small
+            *ngIf="isFieldInvalid('creditCard', 'expirationMonth')"
+            class="p-error"
+            >Expiration month is required.</small
+          >
+        </div>
+
+        <div class="p-field">
+          <label for="expirationYear" class="p-d-block">Expiration Year</label>
+          <ng-select
+            formControlName="expirationYear"
+            class="custom-ng-select"
+            aria-placeholder="YYYY"
+            [ngClass]="{
+              'p-invalid': isFieldInvalid('creditCard', 'expirationYear')
+            }"
+          >
+            <ng-option *ngFor="let item of creditCardYears" [value]="item">
+              {{ item }}
+            </ng-option>
+          </ng-select>
+          <small
+            *ngIf="isFieldInvalid('creditCard', 'expirationYear')"
+            class="p-error"
+            >Expiration year is required.</small
+          >
+        </div>
+      </div>
+      <div class="p-d-flex p-jc-between p-ai-center p-mt-3">
+        <button
+          pButton
+          pRipple
+          label="Previous"
+          class="p-button-sm p-button-outlined"
+          (click)="activeIndex = 2"
+        ></button>
+        <button
+          pButton
+          pRipple
+          label="Next"
+          class="p-button-sm p-button-primary"
+          (click)="activeIndex = 4"
+          [disabled]="!checkoutFormGroup.get('creditCard').valid"
+        ></button>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="activeIndex === 4">
+      <div class="form-group-box form-group-box--review">
+        <h3>Review Your Order</h3>
+        <p>Total Quantity: {{ totalQuantity }}</p>
+        <p>Total Price: {{ totalPrice | currency : "USD" }}</p>
+      </div>
+      <div class="p-grid p-justify-between p-mt-3">
+        <div class="p-col-fixed">
+          <button
+            pButton
+            pRipple
+            label="Previous"
+            class="p-button-sm p-button-outlined"
+            (click)="activeIndex = 3"
+          ></button>
+        </div>
+        <div class="p-col-fixed">
+          <button
+            pButton
+            pRipple
+            label="Submit"
+            class="p-button-sm p-button-primary form-submit-button"
+            type="submit"
+            [disabled]="!checkoutFormGroup.get('creditCard').valid"
+            (click)="onSubmit()"
+          ></button>
+        </div>
+      </div>
+    </ng-container>
+  </form>
+</div>
